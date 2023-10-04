@@ -1,6 +1,7 @@
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, EmailField
+from wtforms import TextAreaField
 from wtforms.validators import DataRequired, Email, Length, ValidationError, EqualTo
 from app.models import User
 from app import db
@@ -38,6 +39,12 @@ class RegistrationForm(FlaskForm):
    raise ValidationError('Please use a different email')
   except sqlalchemy.exc.NoResultFound:
    pass
+
+class EditProfileForm(FlaskForm):
+ username = StringField('Username', validators=[DataRequired()])
+ about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
+ submit = SubmitField('Submit')
+
   
 
  # you define fields in a similar way to how may orm ask to you define columns:
