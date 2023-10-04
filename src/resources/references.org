@@ -1,0 +1,5 @@
+
+* https://flask-sqlalchemy.palletsprojects.com/en/3.1.x/queries/
+user = db.session.execute(db.select(User).filter_by(username='user')).scalar_one()
+user = db.session.execute(db.select(User).order_by(User.id)).scalars().all()
+

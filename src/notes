@@ -1,0 +1,4 @@
+
+view function: a function that defines how to view a url.
+
+the templating options don't make the page dynamic, as in reactive to the user. They let the page react to new information, but for now the source of that information is the server itself. The only interaction is with the reload button.
