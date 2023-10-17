@@ -45,7 +45,19 @@ class EditProfileForm(FlaskForm):
  about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
  submit = SubmitField('Submit')
 
-  
+ def __init__(self, original_username, *args, **kwargs):
+  super(EditProfileForm, self).__init__(*args, **kwargs)
+  self.original_username = original_username
+
+ def validate_username(self, username):
+  if username.data != self.original_username:
+   try:
+    sel = db.select(User).filter_by(username=username.data)
+    user = db.session.execute(sel).scalar_one()
+    raise ValidationError('Please Use a different username')
+   except sqlalchemy.exc.NoResultFound:
+    pass
+   
 
  # you define fields in a similar way to how may orm ask to you define columns:
  # by defining class variables which are instantiations of the fields
